@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Love Love</title>
+    <style>
+        @keyframes headAnimation {
+            0% {
+                background-color: #000000;
+            }
+            50% {
+                background-color: #000000;
+            }
+            100% {
+                background-color: #000000;
+            }
+        }
+
+        @keyframes floatingText {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            animation: headAnimation 5s infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .floating-love {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff1493;
+            text-shadow: 0 0 10px #ff1493, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+            animation: floatingText 6s linear infinite;
+        }
+
+        .quiz-window {
+            width: 400px;
+            background: #1a1a1a;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            box-shadow: 0 0 15px #ff1493, 0 0 40px #ff69b4;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timer {
+            font-size: 18px;
+            color: #ff1493;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .emoji {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        iframe.giphy-embed {
+            border: 5px solid transparent;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #ff1493, 0 0 30px blue, 0 0 50px #ff69b4;
+        }
+
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .button.yes {
+            background: #ff1493;
+            box-shadow: 0 0 10px #ff1493, 0 0 40px #ff69b4;
+        }
+
+        .button.no {
+            background: #1e90ff;
+            box-shadow: 0 0 10px #1e90ff, 0 0 40px #00bfff;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+        }
+
+        .emoji img {
+            width: 100px;
+            height: 100px;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .neon-love {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 10px red, 0 0 20px orange, 0 0 30px yellow, 0 0 40px green, 0 0 50px blue;
+            animation: floatUp 6s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+    <div class="quiz-window">
+        <div class="timer" id="timer">Time left: 20s</div>
+        <div id="emoji" class="emoji"><iframe src="https://giphy.com/embed/UuQBSMgIPGHmmUerQJ" width="100%" height="300" style="pointer-events: none" frameBorder="0" class="giphy-embed"></iframe></div>
+        <div class="question" id="question">Is i look's cute to you ?</div>
+        <div class="buttons">
+            <button class="button yes" id="yesButton">Yes</button>
+            <button class="button no" id="noButton">No</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "Is i look's cute to you ??",
+            "do you love to come in my sweet dreams ??",
+            "had you ever feel love when we chat ??",
+            "do you think , you can trust on me ??",
+            "do you also love when i irritate's you ?",
+            "you do think relationship should be like us ?",
+            "what you like most in me , u can tell in our secret chat ( haha )?",
+            "you will ever say i like you or love you in future ?",
+            "Please try to say a long reply instead hmm , ok , achaji and boloji........ ?",
+            "what is love tell me in a chat..... ?"
+        ];
+
+        const yesEmojis = [
+            "https://giphy.com/embed/UuQBSMgIPGHmmUerQJ",
+            "https://giphy.com/embed/9d3LQ6TdV2Flo8ODTU",
+            "https://giphy.com/embed/AURkA0oveSTII",
+            "https://giphy.com/embed/dye5jdZm5md484p7Q7",
+            "https://giphy.com/embed/uPOwE6mA2fAe2ESwBr",
+            "https://giphy.com/embed/cNcaU0ptTMC3u",
+            "https://giphy.com/embed/RsysBYhKENQE8",
+            "https://giphy.com/embed/1ltjtqneF5b35YNGt4",
+            "https://giphy.com/embed/WiedZx47K1d7zMQBgD",
+            "https://giphy.com/embed/ZH5z48G5Qdtsc",
+            "https://giphy.com/embed/RQtEX1pbzkMX6",
+            "https://giphy.com/embed/UTqgzmxTkgd4k61lQo"
+        ];
+
+        const noEmojis = [
+            "https://giphy.com/embed/Qw1wF6hnNRYixpdgmH",
+            "https://giphy.com/embed/X7rQXpTF95SD6Dxc41",
+            "https://giphy.com/embed/Pn1h5Un3LZD9uq3u07",
+            "https://giphy.com/embed/QiylTgUMyW73rLijdi",
+            "https://giphy.com/embed/4TOp0tB6VuVfWH306B",
+            "https://giphy.com/embed/5jYfdR7KVIOKt7YUfo",
+            "https://giphy.com/embed/Xd1uFODfuPd502B0On",
+            "https://giphy.com/embed/4TOp0tB6VuVfWH306B",
+            "https://giphy.com/embed/X7rQXpTF95SD6Dxc41",
+            "https://giphy.com/embed/Xd1uFODfuPd502B0On"
+        ];
+
+        function createNeonLove() {
+            for (let i = 0; i < 10; i++) {
+                const neonText = document.createElement("div");
+                neonText.className = "neon-love";
+                neonText.textContent = "LOVE";
+                neonText.style.left = Math.random() * 100 + "vw";
+                neonText.style.animationDuration = Math.random() * 4 + 3 + "s";
+                neonText.style.color = getRandomColor();
+                document.body.appendChild(neonText);
+
+                setTimeout(() => {
+                    neonText.remove();
+                }, 6000);
+            }
+        }
+
+        function getRandomColor() {
+            const colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink"];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        setInterval(createNeonLove, 1000);
+
+        let currentQuestionIndex = 0;
+        let timerInterval;
+
+        function startTimer() {
+            let timeLeft = 100;
+            const timerElement = document.getElementById("timer");
+
+            timerElement.textContent = `Time left: ${timeLeft}s`;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = `Time left: ${timeLeft}s`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    goToNextQuestion();
+                }
+            }, 1000);
+        }
+
+        document.getElementById("yesButton").addEventListener("click", () => {
+            clearInterval(timerInterval);
+            updateEmoji("yes");
+            goToNextQuestion();
+        });
+
+        document.getElementById("noButton").addEventListener("click", () => {
+            clearInterval(timerInterval);
+            updateEmoji("no");
+            startTimer(); // Restart the timer if "No" is selected
+        });
+
+        function updateEmoji(answer) {
+            const emojiElement = document.getElementById("emoji");
+            const randomIndex = Math.floor(Math.random() * 10);
+            
+            if (answer === "yes") {
+                emojiElement.innerHTML = `<iframe src="${yesEmojis[randomIndex]}" width="100%" height="300" style="pointer-events: none" frameBorder="0" class="giphy-embed"></iframe>`;
+            } else {
+                emojiElement.innerHTML = `<iframe src="${noEmojis[randomIndex]}" width="100%" height="300" style="pointer-events: none" frameBorder="0" class="giphy-embed"></iframe>`;
+            }
+        }
+
+        function goToNextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                document.getElementById("question").textContent = questions[currentQuestionIndex];
+                startTimer();
+            } else {
+                document.getElementById("question").textContent = "Thanks for accepting my proposal!";
+                document.querySelector(".buttons").style.display = "none";
+                document.getElementById("emoji").style.display = "none";
+                document.getElementById("timer").style.display = "none";
+            }
+        }
+
+        startTimer();
+    </script>
+</body>
+</html>
